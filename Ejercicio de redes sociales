@@ -1,0 +1,66 @@
+archivo = open("presenciaredes.csv" , "r") #se abre el archivo para su lectura
+
+#Primero, se mostrará en pantalla la diferencia de seguidores en Twitter entre los meses de enero y junio.
+
+for r in archivo:
+    datos = r.split(",") #se obtienen los datos del archivo en forma de renglones y los renglones son divididos segun las comas para guardarse en una lista
+    if (datos[0] == 'TWITTER' and datos[1] == 'SEGUIDORES (FOLLOWERS)'):  #si el primer elemento de la lista coincide con la red social y el segundo elemento coincide con lo que se busca
+        num1 = int(datos[3])  #se guardarán los elementos en dos variables para convertirse a enteros
+        num2 = int(datos[8])
+        print("La diferencia de seguidores en Twitter entre los meses de enero y junio es:", abs(num1 - num2)) #y se obtendrá la diferencia entre ambos enteros para imprimirse
+
+archivo.close() #se cierra el archivo
+
+
+#Después, se le pedirá al usuario que ingrese dos números, correspondientes a los meses que desea se obtenga la diferencia de visualizaciones de YouTube.
+
+print("\nMeses disponibles para obtener la diferencia de visualizaciones en YouTube:")  #se le muestra al usuario los números que corresponden a cada mes
+print("\t1.-Enero\n\t2.-Febrero\n\t3.-Marzo\n\t4.-Abril\n\t5.-Mayo\n\t6.-Junio\n")
+
+mes1= int(input("Ingrese el número que corresponda al primer mes contemplado en la operacion: "))  #se le pide al usuario que ingrese mediante números qué meses quiere contemplar para la operación
+while mes1 < 0 or mes1 > 6:  #se comprueba que el número se encuentre en el rango deseado
+    print("Solamente ingrese un número entre el 1 y el 6")
+    mes1= int(input("Ingrese el número que corresponda al primer mes contemplado en la operacion: "))   #si el número no se encuentra en el rango se le pide al usuario que lo vuelva a ingresar
+    
+mes2= int(input("Ingrese el número que corresponda al segundo mes contemplado en la operacion: ")) #se le pide al usuario el siguiente numero
+while mes2 < 0 or mes2 > 6:
+    print("Solamente ingrese un número entre el 1 y el 6")
+    mes2= int(input("Ingrese el número que corresponda al segundo mes contemplado en la operacion: "))
+
+archivo = open("presenciaredes.csv" , "r") #se vuelve a abrir el archivo para su lectura desde un principio
+
+for r in archivo:
+    datos = r.split(",") #se obtienen los datos, se separan segun las comas y se convierten en listas
+    if (datos[0] == 'YOUTUBE' and datos[1] == 'VISUALIZACIONES'):
+        num1 = int(datos[mes1 + 2]) #se obtienen los números para la diferencia segun lo que el usuario ingresó
+        num2 = int(datos[mes2 + 2])
+        print("\nLa diferencia de visualizaciones en YouTube entre los meses seleccionados es:", abs(num1 - num2))
+
+archivo.close() #se cierra el archivo
+
+
+#Por último, se calcula el promedio de crecimiento de Facebook y Twitter de enero a junio.
+
+#Primeramente para Twitter
+
+archivo = open("presenciaredes.csv" , "r") #se reabre el archivo
+
+for r in archivo:
+    datos = r.split(",")
+    if (datos[0] == 'TWITTER' and datos[1] == 'CRECIMIENTO DE FOLLOWERS'):
+        suma = int(datos[3]) + int(datos[4]) + int(datos[5]) + int(datos[6]) + int(datos[7]) + int(datos[8])
+        print("El promedio de crecimiento de seguidores en Twitter de enero a junio es:", suma/6)
+
+archivo.close() #se cierra el archivo
+
+#Después para Facebook
+
+archivo = open("presenciaredes.csv" , "r") #se reabre el archivo
+
+for r in archivo:
+    datos = r.split(",")
+    if (datos[0] == 'FACEBOOK' and datos[1] == 'CRECIMIENTO (SEGUIDORES)'):
+        suma = int(datos[3]) + int(datos[4]) + int(datos[5]) + int(datos[6]) + int(datos[7]) + int(datos[8])
+        print("El promedio de crecimiento de seguidores en Facebook de enero a junio es:", suma/6)
+
+archivo.close() #se cierra el archivo
